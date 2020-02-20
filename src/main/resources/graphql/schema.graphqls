@@ -1,0 +1,34 @@
+# java.util.Date implementation
+scalar Date
+
+# java.time.LocalDate implementation
+scalar LocalDate
+
+# java.time.LocalDateTime implementation
+scalar LocalDateTime
+
+# java.time.LocalTime implementation
+scalar LocalTime
+
+# javal.time.OffsetDateTime implementation
+scalar OffsetDateTime 
+
+type User{
+id: ID!
+username: String
+}
+
+
+type Query {
+    allUsers: [User]
+
+}
+
+#type Mutation {
+#	addUsert(input: CreateUserInput!):User
+#}
+
+schema {
+    query: Query
+   # mutation: Mutation
+}
