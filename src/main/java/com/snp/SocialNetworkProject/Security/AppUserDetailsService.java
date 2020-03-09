@@ -9,11 +9,11 @@ import com.snp.SocialNetworkProject.models.User;
 import com.snp.SocialNetworkProject.repos.UserRepository;
 
 @Service
-public class ApplicationDetailsService implements UserDetailsService{
+public class AppUserDetailsService implements UserDetailsService{
 
 	private UserRepository userRepository;
 	
-	public ApplicationDetailsService(UserRepository userRepository) {
+	public AppUserDetailsService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 	

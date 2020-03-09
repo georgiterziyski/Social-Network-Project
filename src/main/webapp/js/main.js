@@ -16,7 +16,7 @@ $(function(){
 			$(".navbar-brand").text("Здравей, "+response.username)
 		});
 	}
-	getCurrentUser();
+	//getCurrentUser();
 
 	$("#status").on("click", function(e){
 		//e.preventDefault();

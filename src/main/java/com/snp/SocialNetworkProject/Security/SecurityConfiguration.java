@@ -15,10 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
-	private ApplicationDetailsService applicationDetailsService;
+	private AppUserDetailsService userDetailsService;
 	
-	 public SecurityConfiguration(ApplicationDetailsService applicationDetailsService) {
-		 this.applicationDetailsService = applicationDetailsService;
+	 public SecurityConfiguration(AppUserDetailsService applicationDetailsService) {
+		 this.userDetailsService = applicationDetailsService;
 	}
 	 
 	@Override
@@ -32,6 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/**").permitAll()
 			.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
 			.and().csrf().disable();
+		
+		http.headers().frameOptions().disable();
 	}
 
 
@@ -39,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		daoAuthenticationProvider.setUserDetailsService(this.applicationDetailsService);
+		daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
 		return daoAuthenticationProvider;
 	}
 

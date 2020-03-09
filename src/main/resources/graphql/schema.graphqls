@@ -1,31 +1,34 @@
 # java.util.Date implementation
-scalar Date
+#scalar Date
 
 # java.time.LocalDate implementation
-scalar LocalDate
+#scalar LocalDate
 
 # java.time.LocalDateTime implementation
-scalar LocalDateTime
+#scalar LocalDateTime
 
 # java.time.LocalTime implementation
-scalar LocalTime
+#scalar LocalTime
 
 # javal.time.OffsetDateTime implementation
-scalar OffsetDateTime 
+#scalar OffsetDateTime 
 
 type User{
 id: ID!
-username: String
+username: String!
+email: String!
 }
+
 
 
 type Query {
     allUsers: [User]
+    getUser(email: String): User
 
 }
 
 #type Mutation {
-#	addUsert(input: CreateUserInput!):User
+#	addUser(input: CreateUserInput!): User
 #}
 
 schema {

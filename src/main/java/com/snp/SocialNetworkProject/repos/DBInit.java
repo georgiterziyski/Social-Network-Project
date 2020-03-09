@@ -21,15 +21,14 @@ public class DBInit implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		/*
-		 * this.userRepository.deleteAll(); User user = new User("asd",
-		 * passwordEncoder.encode("asd"), "asd@abv.bg", ""); User admin = new
-		 * User("admin", passwordEncoder.encode("admin"), "admin@abv.bg", "");
-		 * 
-		 * List<User> users = Arrays.asList(user,admin);
-		 * 
-		 * this.userRepository.saveAll(users);
-		 */
+
+//		this.userRepository.deleteAll(); 
+//		User user = new User("asd", passwordEncoder.encode("asd"), "asd@abv.bg", ""); 
+//		User admin = new User("admin", passwordEncoder.encode("admin"), "admin@abv.bg", "");
+//		  
+//		List<User> users = Arrays.asList(user,admin);
+//		  
+//		this.userRepository.saveAll(users);
 	}
 	
 }

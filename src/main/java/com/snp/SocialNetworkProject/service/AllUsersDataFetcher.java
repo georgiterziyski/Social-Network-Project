@@ -1,25 +1,25 @@
-package com.snp.graphql.query;
+package com.snp.SocialNetworkProject.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.snp.SocialNetworkProject.models.User;
 import com.snp.SocialNetworkProject.repos.UserRepository;
 
+import graphql.schema.DataFetcher;
+import graphql.schema.DataFetchingEnvironment;
+
 @Component
-public class Query implements GraphQLQueryResolver{
+public class AllUsersDataFetcher implements DataFetcher<List<User>> {
 
 	@Autowired
 	UserRepository userRepository;
 	
-	public List<User> allUsers() {
+	@Override
+	public List<User> get(DataFetchingEnvironment environment) throws Exception {
 		return userRepository.findAll();
 	}
-	
-	public User getUser(final String email) {
-		return userRepository.findByEmail(email);
-	}
+
 }
