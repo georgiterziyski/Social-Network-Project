@@ -13,25 +13,29 @@
 # javal.time.OffsetDateTime implementation
 #scalar OffsetDateTime 
 
-type User{
-id: ID!
-username: String!
-email: String!
+type User {
+	id		 : ID!
+	userName : String!
+	email	 : String!
 }
-
-
 
 type Query {
-    allUsers: [User]
-    getUser(email: String): User
+    allUsers : [User]
+ #   getUser(email : String) : User
 
 }
 
-#type Mutation {
-#	addUser(input: CreateUserInput!): User
-#}
+input UserInput {
+	userName : String!
+	email	 : String!
+	password : String!
+}
+
+type Mutation {
+	addUser(input : UserInput!) : User
+}
 
 schema {
-    query: Query
-   # mutation: Mutation
+    query    : Query
+   # mutation : Mutation
 }

@@ -1,4 +1,4 @@
-package com.snp.SocialNetworkProject.Security;
+package com.snp.social_network_project.Security;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;

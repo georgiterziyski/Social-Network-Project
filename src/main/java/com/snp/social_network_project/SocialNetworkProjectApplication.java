@@ -1,11 +1,7 @@
-package com.snp.SocialNetworkProject;
+package com.snp.social_network_project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import com.snp.SocialNetworkProject.repos.UserRepository;
-import com.snp.graphql.query.Query;
 
 @SpringBootApplication
 public class SocialNetworkProjectApplication {

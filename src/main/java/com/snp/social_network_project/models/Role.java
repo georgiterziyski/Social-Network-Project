@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.snp.SocialNetworkProject.models;
+package com.snp.social_network_project.models;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.snp.graphql.query;
+package com.snp.social_network_project.graphql.query;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.snp.SocialNetworkProject.models.User;
-import com.snp.SocialNetworkProject.repos.UserRepository;
+import com.snp.social_network_project.models.User;
+import com.snp.social_network_project.repos.UserRepository;
 
 @Component
 public class Query implements GraphQLQueryResolver{

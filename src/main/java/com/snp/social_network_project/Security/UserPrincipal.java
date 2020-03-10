@@ -1,4 +1,4 @@
-package com.snp.SocialNetworkProject.Security;
+package com.snp.social_network_project.Security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,8 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.snp.SocialNetworkProject.models.Role;
-import com.snp.SocialNetworkProject.models.User;
+import com.snp.social_network_project.models.Role;
+import com.snp.social_network_project.models.User;
 
 public class UserPrincipal implements UserDetails{
 
