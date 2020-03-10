@@ -15,27 +15,27 @@
 
 type User {
 	id: ID!
-	username: String!
-	email: String!
+	username : String!
+	email    : String!
 }
 
 type Query {
-    allUsers: [User]
+    allUsers : [User]
     getUser(email: String) : User
 
 }
 
-#input UserInput {
-	#userName : String!
-	#email	 : String!
-	#password : String!
-#}
+input CreateUserInput {
+	username : String!
+	email	 : String!
+	password : String!
+}
 
-#type Mutation {
-#	addUser(input : UserInput!) : User
-#}
+type Mutation {
+	createUser(	input : CreateUserInput!) : User
+}
 
 schema {
-    query: Query
-   # mutation: Mutation
+    query    : Query
+    mutation : Mutation
 }
