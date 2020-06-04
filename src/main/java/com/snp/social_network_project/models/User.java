@@ -21,7 +21,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name="User")
-@JsonIgnoreProperties({"favourites"})
+@JsonIgnoreProperties({"favourites", "posts"})
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -39,8 +39,17 @@ public class User implements Serializable{
 	@Column(name = "Email", nullable = false, unique = true)
 	private String email;
 	
-	@OneToMany(mappedBy="owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Column(name = "FirstName", nullable = true)
+	private String firstName;
+	
+	@Column(name = "LastName", nullable = true)
+	private String lastName;
+	
+	@OneToMany(mappedBy="owner", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Favourite> favourites;
+	
+	@OneToMany(mappedBy="owner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Post> posts;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role",
@@ -56,12 +65,19 @@ public class User implements Serializable{
 		
 	}
 	
-	public User(final String username, final String password, final String email, String permissions) {
-		this.username = username;
-		this.password = password;
-		this.email = email;
+	public User(final String username, 
+				final String password, 
+				final String email,
+				final String firstName,
+				final String lastName,
+				final String permissions) {
+		this.username 	 = username;
+		this.password 	 = password;
+		this.email 		 = email;
+		this.firstName 	 = firstName;
+		this.lastName	 = lastName;
 		this.permissions = permissions;
-		this.active = 1;
+		this.active		 = 1;
 	}
 	
 	public int isActive() {
@@ -101,6 +117,22 @@ public class User implements Serializable{
 		this.permissions = permissions;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -150,6 +182,25 @@ public class User implements Serializable{
 	
 	public void removeFavourite(Favourite favourite) {
 		getFavourites().remove(favourite);
+	}
+	
+	public List<Post> getPosts() {
+		if(null == posts) {
+			posts = new ArrayList<>();
+		}
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+	
+	public void addPosts(Post post) {
+		getPosts().add(post);
+	}
+	
+	public void removePost(Post post) {
+		getPosts().remove(post);
 	}
 	
 	@Override

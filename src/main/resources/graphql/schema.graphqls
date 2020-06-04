@@ -17,6 +17,9 @@ type User {
 	id: ID!
 	username : String!
 	email    : String!
+	password : String!
+	firstName: String
+	lastName : String
 }
 
 type Query {
@@ -29,6 +32,8 @@ input CreateUserInput {
 	username : String!
 	email	 : String!
 	password : String!
+	firstName: String
+	lastName : String
 }
 
 type Mutation {

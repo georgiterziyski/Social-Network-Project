@@ -97,7 +97,7 @@ public class UserManagerRest {
 	public User register(@RequestParam(name = "email") 	  final String email,
 						 @RequestParam(name = "username") final String username,
 						 @RequestParam(name = "password") final String password) {
-		final User newUser = new User(username, password, email, "");
+		final User newUser = new User(username, password, email, "", "", "");
 		return repository.saveAndFlush(newUser);
 	}
 }

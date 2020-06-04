@@ -23,7 +23,9 @@ public class Mutation implements GraphQLMutationResolver{
 	public User createUser(final CreateUserInput input) {
 		final User newUser = new User(input.getUsername(),
 									  input.getPassword(),
-									  input.getEmail(), 
+									  input.getEmail(),
+									  input.getFirstName(),
+									  input.getLastName(),
 									  "");
 		return userRepository.saveAndFlush(newUser);
 	}
