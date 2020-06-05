@@ -36,8 +36,19 @@ input CreateUserInput {
 	lastName : String
 }
 
+input UserCredentialsInput {
+    email    : String!
+    password : String!
+}
+
+type LoginPayload {
+  token: String
+  user: User
+}
+
 type Mutation {
 	createUser(	input : CreateUserInput!) : User
+	login (auth : UserCredentialsInput!): LoginPayload
 }
 
 schema {

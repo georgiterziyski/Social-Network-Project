@@ -1,4 +1,4 @@
-package com.snp.social_network_project.rest;
+package com.snp.rest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.snp.social_network_project.models.Favourite;
-import com.snp.social_network_project.models.User;
-import com.snp.social_network_project.repos.FavouriteRepository;
-import com.snp.social_network_project.repos.UserRepository;
+import com.snp.models.Favourite;
+import com.snp.models.User;
+import com.snp.repos.FavouriteRepository;
+import com.snp.repos.UserRepository;
 
 @RestController
 public class FavouriteManagerRest {

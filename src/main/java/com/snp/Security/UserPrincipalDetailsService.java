@@ -1,19 +1,19 @@
-package com.snp.social_network_project.Security;
+package com.snp.Security;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.snp.social_network_project.models.User;
-import com.snp.social_network_project.repos.UserRepository;
+import com.snp.models.User;
+import com.snp.repos.UserRepository;
 
 @Service
-public class AppUserDetailsService implements UserDetailsService{
+public class UserPrincipalDetailsService implements UserDetailsService{
 
 	private UserRepository userRepository;
 	
-	public AppUserDetailsService(UserRepository userRepository) {
+	public UserPrincipalDetailsService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 	

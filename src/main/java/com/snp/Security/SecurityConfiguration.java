@@ -1,4 +1,4 @@
-package com.snp.social_network_project.Security;
+package com.snp.Security;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
@@ -8,17 +8,24 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.snp.Security.JWT.JwtAuthenticationFilter;
+import com.snp.Security.JWT.JwtAuthorizationFilter;
+import com.snp.repos.UserRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
-	private AppUserDetailsService userDetailsService;
+	private UserPrincipalDetailsService userPrincipalDetailsService;
+	private UserRepository userRepository;
 	
-	 public SecurityConfiguration(AppUserDetailsService applicationDetailsService) {
-		 this.userDetailsService = applicationDetailsService;
+	 public SecurityConfiguration(UserPrincipalDetailsService applicationDetailsService, UserRepository userRepository) {
+		 this.userPrincipalDetailsService = applicationDetailsService;
+	     this.userRepository = userRepository;
 	}
 	 
 	@Override
@@ -28,12 +35,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/**").permitAll()
-			.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
-			.and().csrf().disable();
-		
-		http.headers().frameOptions().disable();
+		http		
+	        // remove csrf and state in session because in jwt we do not need them
+	        .csrf().disable()
+	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	        .and()
+            // add jwt filters (1. authentication, 2. authorization)
+            .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+            .addFilter(new JwtAuthorizationFilter(authenticationManager(),  this.userRepository))
+			.authorizeRequests()
+			.antMatchers("/graphiql").permitAll()
+			.antMatchers("/graphql").permitAll()
+			//.antMatchers("/vendor/**").permitAll()
+			.antMatchers("/h2-console").permitAll()
+			//.antMatchers("/h2-console/*").hasRole("ADMIN")
+			.requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll();
+	     	//.anyRequest().authenticated();
 	}
 
 
@@ -41,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		daoAuthenticationProvider.setUserDetailsService(this.userDetailsService);
+		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
 		return daoAuthenticationProvider;
 	}
 

@@ -1,12 +1,12 @@
-package com.snp.social_network_project.repos;
+package com.snp.repos;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.snp.social_network_project.models.Post;
-import com.snp.social_network_project.models.User;
+import com.snp.models.Post;
+import com.snp.models.User;
 
 
 @Repository

@@ -1,15 +1,16 @@
-package com.snp.social_network_project.Security;
+package com.snp.Security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.snp.social_network_project.models.Role;
-import com.snp.social_network_project.models.User;
+import com.snp.models.Role;
+import com.snp.models.User;
 
 public class UserPrincipal implements UserDetails{
 
@@ -18,28 +19,30 @@ public class UserPrincipal implements UserDetails{
 	 */
 	private static final long serialVersionUID = 1L;
 	private User user;
-	private Collection<GrantedAuthority> authorities = new ArrayList<>();
 	
 	public UserPrincipal(User user) {
 		this.user = user;
-		final Set<Role> roles = user.getRoles();
-		if (null != roles && !roles.isEmpty()) {
-			roles.forEach(role -> 
-			authorities.add(new SimpleGrantedAuthority(role.getCode())));
-		} else {
-			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-		}
 	}
 	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
-		this.user.getPermissionsList().forEach(p -> {
-			GrantedAuthority authority = new SimpleGrantedAuthority(p);
-			authorities.add(authority);
-		});
-		return authorities;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // Extract list of permissions (name)
+        this.user.getPermissionsList().forEach(p -> {
+            GrantedAuthority authority = new SimpleGrantedAuthority(p);
+            authorities.add(authority);
+        });
+
+        // Extract list of roles (ROLE_name)
+        this.user.getRoles().forEach(r -> {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
+            authorities.add(authority);
+        });
+
+        return authorities;
+    }
+
 
 	@Override
 	public String getPassword() {
@@ -69,6 +72,10 @@ public class UserPrincipal implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return this.user.isActive() == 1;
+	}
+
+	public String getEmail() {
+		return this.user.getEmail();
 	}
 	
 }

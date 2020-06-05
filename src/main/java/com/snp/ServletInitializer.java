@@ -1,4 +1,4 @@
-package com.snp.social_network_project;
+package com.snp;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
